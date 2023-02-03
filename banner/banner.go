@@ -16,7 +16,7 @@ func main() {
 	// code points are not characters, they are numbers
 	// and so the length of the string is 5, not 2, in this case
 	// because the G is a single code point, but the emojiString is four
-	emojiString := "G😂"
+	emojiString := "G😂G"
 	fmt.Println("Length of", emojiString, "is", len(emojiString))
 
 	// bytes are the raw data that make up a string
@@ -42,15 +42,33 @@ func main() {
 
 	fmt.Printf("%20s!", emojiString)
 
+	// palindrome detection
+	fmt.Println("racecar, ", IsPalindrome("racecar", true))
+	fmt.Println("hannah, ", IsPalindrome("hannah", true))
+	fmt.Println("banana, ", IsPalindrome("banana", true))
+	fmt.Println("G😂G, ", IsPalindrome("G😂G", true))
+	fmt.Println("G😂G, ", IsPalindrome("G😂G", false))
+
 }
 
-func IsPalindrome(s string) bool {
-	// for i := 0; i < len(s)/2; i++ {
-	// 	if s[i] != s[len(s)-1-i] {
-	// 		return false
-	// 	}
-	// }
-	reversed := strings.(s)
+func IsPalindrome(word string, runeFriendly bool) bool {
+	if !runeFriendly {
+		for i := 0; i < len(word)/2; i++ {
+			// if the letter at the index is not equal to the letter at the mirrored index,
+			// then it is not a palindrome
+			if word[i] != word[len(word)-1-i] {
+				return false
+			}
+		}
+	} else {
+		// convert string to a slice of runes, and use that instead
+		runes := []rune(word)
+		for i := 0; i < len(runes)/2; i++ {
+			if runes[i] != runes[len(runes)-1-i] {
+				return false
+			}
+		}
+	}
 	return true
 }
 
